@@ -1,0 +1,111 @@
+Name,Description,Section,Assignee
+"Start here · five-minute setup","[ADBP:GUIDE]
+REFERENCE ONLY — workflow instructions, not active delivery work.
+Owner: Manav Mishra
+State: intake
+Instructions: ZERO SLOP DELIVERY SETUP
+
+One outcome, one human owner, evidence before Done. Start with ZS-001 in Ready. The other items are scoped intake, not promises of delivery.
+
+Flow: Intake → Ready → Active → Review → Release → Done; Blocked holds a named next action. Keep this reference card open.
+
+Agents execute in the connected assistant or runner, not inside this board automatically. Use disjoint worktrees, bounded packets and a reviewer different from the executor. Human owner may review agent work. Do not change billing or buy AI capacity.
+
+Free-compatible: ordinary sections, tasks, subtasks, comments and links only. Do not use trial-only rules/fields/dependencies. Current Asana Personal supports two people; eligible legacy accounts differ. Check the account's actual allowance.
+
+Canonical code: https://github.com/manavmishra/ZeroSlop
+Live website source: the separate ZSWebpage repository. Never deploy the retained website/ snapshot in ZeroSlop.
+Framework: https://github.com/manavmishra/agent-delivery-backplane
+
+To start: open a Ready task, read the full packet, confirm authority, delegate, and post a checkpoint. A connector being installed does not authorize every action it exposes.","Start here",""
+"Copy me · delivery task","[ADBP:TASK-TEMPLATE]
+REFERENCE ONLY — workflow instructions, not active delivery work.
+Owner: Manav Mishra
+State: intake
+Instructions: Duplicate this card into Intake. Rename it to an observable outcome. This reference card must never count as active work.
+
+OUTCOME
+What will be different for the user?
+
+OWNER
+One human accountable for the result.
+
+SCOPE
+Repository, baseline commit, allowed files, exclusions. Read that repository's AGENTS.md first. Use a separate worktree/branch for each writer.
+
+ACCEPTANCE
+Two or three checks with expected results. Include failure behavior, accessibility or performance only when relevant.
+
+DEPENDENCIES
+Links to prerequisite tasks and the evidence needed from them. A link is a manual gate on free Asana, not a native dependency.
+
+RISK / BUDGET
+Low, medium or high. Initial timebox 30 minutes; at most two attempts; no new paid calls. Production, billing, permissions, destructive or public actions need explicit authority. Scope existing consent precisely.
+
+WORKERS
+For each: role, allowed write scope, run/session link, branch, last checkpoint, next action. Assignment is not an atomic lock.
+
+REVIEW / RELEASE
+Reviewer must differ from executor; in a solo project the human owner may review agent work. Link exact commit, PR/check results and release/rollback evidence. Document non-release completion instead of inventing a deployment.
+
+DONE
+Acceptance met, independent review recorded, authorized release verified if applicable, no unresolved blocker. Mark complete only after these checks.","Start here",""
+"Match website preflight to the native WebMCP CI gate","[ADBP:ZS-001]
+DELIVERY WORK PACKET
+Owner: Manav Mishra
+State: ready
+Instructions: Audit finding on 2026-09-08, not yet fixed by this framework. This task is Ready for an authorized local implementation run; it is not already running.
+
+Parallel packets: implementation owns preflight change; test preparation/review is read-only until an agreed non-overlapping test file is assigned. Use independent worktrees. Do not publish or deploy without release authority.
+
+The skill repository's website/ is a retained snapshot. Work in the separate ZSWebpage source. Verify actual current paths/commands rather than copying stale commands from task prose.
+Outcome: The documented local preflight checks the same native WebMCP regression that website CI requires.
+Repository: ZSWebpage
+Include: scripts/preflight.sh, test coverage for preflight command inclusion
+Exclude: runtime behavior, production deployment, billing, release version
+Acceptance:
+- Read current AGENTS.md and CI; confirm the omission still exists before editing.
+- Add a failing regression showing the required native WebMCP check is absent, then make it pass.
+- Run the documented preflight and compare it with CI; independent reviewer checks the exact diff.
+Risk: low
+Budget: 30 minutes; 2 attempts","Ready",""
+"Scope a cross-channel release verification packet","[ADBP:ZS-002]
+DELIVERY WORK PACKET
+Owner: Manav Mishra
+State: intake
+Instructions: Intake discovery task, not an assertion that releases are broken. Preserve published Cursor/OpenAI packaging and current release automation. Narrow the task before moving to Ready.
+Outcome: A small repeatable release check covers skill, npm CLI, MCP, REST, website and downloadable skill ZIP without unnecessary inference cost.
+Repository: ZeroSlop + ZSWebpage
+Include: release verification documentation and tests
+Exclude: billing, unbounded load tests, registry resubmission
+Acceptance:
+- Inspect existing release and version-sync checks before proposing additions.
+- List authoritative version/evidence sources and failure behavior per channel.
+- Use deterministic/offline checks first; obtain approval for any additional live inference.
+Risk: medium
+Budget: 30 minutes; 2 attempts","Intake",""
+"Investigate the isolated layout-shift signal","[ADBP:ZS-003]
+DELIVERY WORK PACKET
+Owner: Manav Mishra
+State: intake
+Instructions: Do not label this a confirmed regression. Keep raw account analytics and visitor data private. A research task can finish with an approved finding; it does not need a deployment.
+Outcome: Determine whether the previously observed layout-shift outlier is reproducible and worth a fix.
+Repository: ZSWebpage
+Include: read-only performance investigation
+Exclude: private analytics in public repository, unverified performance claims
+Acceptance:
+- Record page, viewport, measurement date and reproducibility.
+- Distinguish an isolated observation from field Core Web Vitals.
+- Recommend a narrowly scoped fix only if evidence supports one.
+Risk: low
+Budget: 30 minutes; 2 attempts","Intake",""
+"Review authenticated Bing discovery status","[ADBP:ZS-004]
+DELIVERY WORK PACKET
+Owner: Manav Mishra
+State: blocked
+Instructions: No credentials in Asana or GitHub. Do not infer indexing success from a submitted URL or invent ranking improvements. This is an access follow-up, not a proven SEO defect.
+Outcome: Check authenticated discovery/indexing evidence that was unavailable to the earlier public-site audit.
+Risk: low
+Budget: 30 minutes; 2 attempts
+Blocked: Authenticated Bing Webmaster access has not been established for this workflow.
+Next action: Manav supplies an authorized session or confirms this investigation is not needed.","Blocked",""

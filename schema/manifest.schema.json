@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-delivery-backplane:manifest:1.0",
+  "title": "Agent Delivery Backplane manifest 1.0",
+  "$comment": "Structural schema. The CLI additionally enforces references, delivery section IDs matching state, unique normalized section names, reserved lifecycle names, dependency cycles/completion from Ready onward, readiness, review independence, risk signoff, and done/blocked gates. Offline checks verify recorded assertions, not identity or evidence authenticity. Input is limited to 1 MiB, depth 20, and 50000 JSON nodes.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "name", "sections", "tasks"],
+  "properties": {
+    "schemaVersion": { "type": "string", "enum": ["1.0"] },
+    "name": { "$ref": "#/$defs/name" },
+    "metadata": { "type": "object", "additionalProperties": true },
+    "sections": { "type": "array", "minItems": 1, "maxItems": 100, "items": { "$ref": "#/$defs/section" } },
+    "tasks": { "type": "array", "maxItems": 1000, "items": { "$ref": "#/$defs/task" } }
+  },
+  "$defs": {
+    "id": { "type": "string", "maxLength": 128, "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$" },
+    "name": { "type": "string", "maxLength": 200, "pattern": "\\S" },
+    "text": { "type": "string", "maxLength": 10000, "pattern": "\\S" },
+    "url": { "type": "string", "maxLength": 2048, "format": "http-url" },
+    "section": {
+      "type": "object", "additionalProperties": false, "required": ["id", "name"],
+      "properties": { "id": { "$ref": "#/$defs/id" }, "name": { "$ref": "#/$defs/name" } }
+    },
+    "scope": {
+      "type": "object", "additionalProperties": false, "required": ["repo", "include", "exclude"],
+      "properties": {
+        "repo": { "$ref": "#/$defs/text" },
+        "include": { "type": "array", "minItems": 1, "maxItems": 100, "items": { "$ref": "#/$defs/text" } },
+        "exclude": { "type": "array", "maxItems": 100, "items": { "$ref": "#/$defs/text" } }
+      }
+    },
+    "task": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "name", "section", "kind", "owner", "instructions", "state"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" }, "name": { "$ref": "#/$defs/name" },
+        "section": { "$ref": "#/$defs/id" },
+        "kind": { "type": "string", "enum": ["reference", "delivery"] },
+        "owner": { "$ref": "#/$defs/name" },
+        "ownerEmail": { "type": "string", "maxLength": 254, "format": "email" },
+        "instructions": { "$ref": "#/$defs/text" },
+        "state": { "type": "string", "enum": ["intake", "ready", "active", "review", "release", "done", "blocked"] },
+        "outcome": { "$ref": "#/$defs/text" },
+        "scope": { "$ref": "#/$defs/scope" },
+        "acceptance": { "type": "array", "minItems": 1, "maxItems": 100, "items": { "$ref": "#/$defs/text" } },
+        "risk": { "type": "string", "enum": ["low", "medium", "high"] },
+        "dependsOn": { "type": "array", "maxItems": 1000, "items": { "$ref": "#/$defs/id" } },
+        "evidence": {
+          "type": "array", "maxItems": 100,
+          "items": {
+            "type": "object", "additionalProperties": false, "required": ["label", "url"],
+            "properties": { "label": { "$ref": "#/$defs/name" }, "url": { "$ref": "#/$defs/url" } }
+          }
+        },
+        "budget": {
+          "type": "object", "additionalProperties": false, "required": ["maxMinutes", "maxAttempts"],
+          "properties": {
+            "maxMinutes": { "type": "integer", "minimum": 1, "maximum": 10080 },
+            "maxAttempts": { "type": "integer", "minimum": 1, "maximum": 100 }
+          }
+        },
+        "run": {
+          "type": "object", "additionalProperties": false, "required": ["executor"],
+          "properties": { "executor": { "$ref": "#/$defs/name" }, "runId": { "$ref": "#/$defs/name" }, "branch": { "$ref": "#/$defs/name" } }
+        },
+        "review": {
+          "type": "object", "additionalProperties": false, "required": ["reviewer", "decision", "evidenceUrl"],
+          "properties": {
+            "reviewer": { "$ref": "#/$defs/name" },
+            "decision": { "type": "string", "enum": ["approved", "changes_requested"] },
+            "evidenceUrl": { "$ref": "#/$defs/url" }
+          }
+        },
+        "delivery": {
+          "type": "object", "additionalProperties": false, "required": ["status", "evidenceUrl"],
+          "properties": {
+            "status": { "type": "string", "enum": ["not_applicable", "verified"] },
+            "evidenceUrl": { "$ref": "#/$defs/url" }
+          }
+        },
+        "blocked": {
+          "type": "object", "additionalProperties": false, "required": ["reason", "nextAction"],
+          "properties": { "reason": { "$ref": "#/$defs/text" }, "nextAction": { "$ref": "#/$defs/text" } }
+        },
+        "approvedBy": { "$ref": "#/$defs/name" },
+        "metadata": { "type": "object", "additionalProperties": true }
+      }
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "agent-delivery-backplane",
+  "version": "0.1.0",
+  "description": "Offline, portable work packets for human and agent software delivery",
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "bin": { "adbp": "src/cli.mjs" },
+  "scripts": { "test": "node --test", "check": "node --check src/cli.mjs && node --test" },
+  "license": "MIT",
+  "files": ["src/", "schema/", "templates/", "examples/", "docs/", "README.md", "LICENSE"]
+}

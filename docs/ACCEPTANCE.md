@@ -94,6 +94,9 @@ This records the local CLI suite and separate parser check, not a pass for every
 
 ### Audit extension local checkpoint — September 8, 2026
 
+This earlier checkpoint is retained as history. The resumed review below supersedes
+its implementation status; it does not turn the partial review into approval.
+
 The expanded suite passes **35 tests, 0 failures** on macOS with the bundled Node 24 runtime. It covers historical cutoffs, late-recorded evidence, malformed input, candidate changes, reopens, blockers, release ordering, authority assertions, independent actor IDs, no-release work, unchanged inputs and a deterministic 1,000-event history. The documented example reports Active, Done and Blocked at its three cutoffs. The template and its generated CSV remain reference instructions, without fictional completed work.
 
 TDD evidence: the implementation agent's audit regressions were followed by a separate review that found reopening, release-ordering, repeated-worker and malformed-field gaps. Regression cases now cover those findings. A later scope/role test also failed before the coordinator's correction and passed afterward. Those local passes do not constitute the missing final independent review.
@@ -108,3 +111,13 @@ Tested implementation SHA-256 values:
 | `src/cli.mjs` | `b1a245ca0ba8e166f0292082e5674407c5126eccbb4593b36a6947a91b822d46` |
 | `src/manifest.mjs` | `39176256ad7bfac37f6e757a62792605eec63a9843755c35a9161fd3dce11eaa` |
 | `schema/audit.schema.json` | `99e057354ef877f2595668e3b0babc7e24e0ae0ebce4761181ccf4016fa0b881` |
+
+### Resumed independent review — September 8, 2026
+
+Codex reviewer `/root/audit_release_review` inspected commit `1227e4954beb682ec222974243cb28322e63b6a9` and requested four corrections: recursive scope-schema payload, ignored candidate restriction on work authority, a later closure borrowing an older candidate's closure, and verification retained across a newer release at equal timestamps. The coordinator corrected each and added regressions. The three runtime regressions failed before the fixes and passed afterward; the scope-schema regression checks the resolved payload fields and constraints.
+
+The corrected suite passes **39 tests** under Node 24 on macOS. The reviewer separately reproduced rejection of all four cases and checked the full illustrative schema/example, including malformed scope payloads. The coordinator additionally validated the complete illustrative audit with Ajv's Draft 2020-12 validator and format checks. That development-only tool was not added to runtime dependencies. CI additionally runs the suite on Linux with Node 22 and 24.
+
+A fresh child reviewer exercised both skills against four synthetic requests: a read-only status request with pending writes; a fix with an uncertain task creation and still-active overlapping worker; review with stale tests, self-review and a skipped deploy; and a historical cutoff before the review was recorded. The resulting decisions preserved read-only boundaries, prevented duplicate/competing work, withheld unsupported release approval, and excluded later evidence. Two wording ambiguities were corrected afterward: identifying a packet before an Asana task exists, and allowing explicitly no-release deliverables to close.
+
+Both skill metadata checks pass. These scenario exercises are AI forward-tests, not live multi-user concurrency or independent human onboarding tests. They do not certify unattended operation, Windows behavior, field performance, identity, evidence authenticity or regulatory compliance. Release approval and installation receipts belong with the exact reviewed commit in the delivery record.

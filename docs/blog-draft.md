@@ -1,6 +1,6 @@
 # An Asana board for working with coding agents
 
-> Draft for review. The audit extension described below is implemented locally; final independent review and publication are pending. The two proposed delivery skills remain uninstalled. No measured productivity improvement is claimed.
+> Blog draft for publication review. The framework includes the audit command and both delivery skills. This article makes no claim of measured productivity improvement.
 
 An agent can finish its assignment while the feature remains broken. The code compiles, the card moves, and nobody has checked whether the person using the product can complete the task.
 
@@ -26,19 +26,19 @@ Ready means someone can begin without inventing the requirements. Active means t
 
 For a solo project, the owner can review an agent's work. A fresh agent can provide an additional review, but calling it “independent” must not imply a second human signed off. The executor cannot approve its own output.
 
-I would start with one active outcome and at most three workers on non-overlapping work. Each packet gets an initial 30-minute timebox and at most two attempts. Those are adjustable operating limits, not research findings. Spending limits still need enforcement by the runner; writing a number in an Asana description does not enforce a budget.
+I would start with one active outcome and at most three workers on non-overlapping work. Each packet gets an initial 30-minute timebox and at most two attempts. Child packets share the parent's limits. Those are adjustable operating limits, not research findings. Spending limits still need enforcement by the runner; writing a number in an Asana description does not enforce a budget.
 
-The free baseline uses ordinary tasks, sections, subtasks, comments, and links, without requiring paid rules or custom fields. Asana's current Personal plan supports two people, with different terms for eligible legacy accounts. More agents should not mean inviting more fake teammates. [Asana Personal details](https://help.asana.com/s/article/asana-personal-plan-details?language=en_US).
+The free baseline uses ordinary tasks, sections, subtasks, comments, and links, without requiring paid rules or custom fields. Asana's current Personal plan supports two people, with different terms for eligible legacy accounts. More agents should not mean inviting more fake teammates. [Asana Personal](https://asana.com/plan/personal), [plan and legacy eligibility details](https://help.asana.com/s/article/asana-personal-plan-details?language=en_US).
 
 ## Add skills where they help
 
-Two proposed assistant skills would make this workflow easier to invoke. Neither has been created or installed. The [full skills proposal](SKILLS-PROPOSAL.md) describes their scope and the checks required before installation.
+The repository includes two assistant skills. The [skills guide](SKILLS-PROPOSAL.md) describes their scope, installation and validation. They use the assistant and authorized Asana access the operator already has.
 
-`delivery-coordinator` would be the everyday entry point. In plan mode, it would turn an outcome into bounded work packets. Work mode would start authorized work through the existing assistant. Status would remain read-only. Recover would inspect stalled work and conflicting writers before proposing how to continue. A single entry point would spare the operator from repeating the handoff rules in every request; it would not make Asana an automatic dispatcher.
+`delivery-coordinator` is the everyday entry point. Plan mode turns an outcome into bounded work packets. Work mode starts authorized work through the existing assistant. Status remains read-only. Recover inspects stalled work and conflicting writers before proposing how to continue. The coordinator maintains the cards during authorized work so the operator does not have to repeat the handoff rules in every request.
 
-`delivery-reviewer` would examine a specific result in a fresh run. Its job would cover acceptance checks and regressions, including relevant security risks and release readiness. That gives the implementer a separate review to address. The reviewer would report findings and evidence without silently fixing its own findings or merging the change. Human approval would still be required where the task or repository demands it.
+`delivery-reviewer` examines a specific result in a fresh run. It checks acceptance and regressions, including relevant security risks and release readiness. The implementer gets a separate review to address. The reviewer reports findings and evidence without silently fixing its own findings or merging the change. Human approval remains required where the task or repository demands it.
 
-These are the jobs the proposed skills would cover. None requires another Asana seat.
+These are the jobs the skills cover. Neither requires another Asana seat.
 
 | Coordinator use cases | What the operator gets |
 | --- | --- |
@@ -109,6 +109,6 @@ METR's February 2026 follow-up illustrates why that is harder to measure than it
 
 For this workflow, I would record elapsed delivery time separately from human working time. Review time, rework, failed changes, and spending belong in the same record. Keep task type and tool version attached so a documentation edit is not compared with a risky release as though they were equivalent.
 
-The proposed Zero Slop preflight pilot is deliberately narrow: check whether the local website preflight includes the native WebMCP regression required by CI, then close any confirmed gap with a test. Its live status needs verification before publication. This framework has not yet produced a measured improvement in delivery performance.
+The Zero Slop preflight pilot is deliberately narrow: check whether the local website preflight includes the native WebMCP regression required by CI, then close any confirmed gap with a test. Its task must retain the local test results and any later release evidence separately. This framework has not yet produced a measured improvement in delivery performance.
 
 Start with one accepted change and inspect the record afterward. If another person can tell what changed, why it passed, and how to undo it, the next handoff has the information it needs.

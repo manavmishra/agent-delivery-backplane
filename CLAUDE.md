@@ -10,4 +10,4 @@ Preserve unrelated changes. Use `npm test` for validator changes and the documen
 
 Read `docs/AUDIT-TRAIL.md` for per-work history and point-in-time reporting. Apply the contract to this repository's own development too. Preserve missing evidence as a gap; a review that stopped before inspecting the final candidate is not approval to release it.
 
-Changes to runtime code, schemas, connectors, permissions, releases, or billing need the authority appropriate to the actual request. Housekeeping does not grant that authority. Do not create or install skills under these instructions; optional skills still require the user's separate decision.
+Changes to runtime code, schemas, connectors, permissions, releases, or billing need the authority appropriate to the actual request. Housekeeping does not grant that authority. New skill installations still require the user's decision. The approved coordinator and reviewer are maintained in `skills/` and described in `docs/SKILLS-PROPOSAL.md`. Use the coordinator for authorized development when available; the bounded housekeeping contract still applies without it.

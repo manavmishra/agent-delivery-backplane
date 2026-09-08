@@ -1,0 +1,6 @@
+interface:
+  display_name: "Delivery Coordinator"
+  short_description: "Coordinate delivery and maintain Asana records"
+  default_prompt: "Use $delivery-coordinator to handle this work and maintain its Asana delivery record."
+policy:
+  allow_implicit_invocation: true

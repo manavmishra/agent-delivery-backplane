@@ -1,6 +1,6 @@
-# Optional skills — proposal awaiting approval
+# Delivery skills — use cases and installation
 
-**Proposal only: neither `delivery-coordinator` nor `delivery-reviewer` has been created or installed. Approval is pending.** The board can be used now through Asana's UI and an assistant capable of repository work. A connected Asana tool can help when available.
+The approved `delivery-coordinator` and `delivery-reviewer` skills are included in `skills/`. They are optional instructions for an existing assistant. Installing them does not start a service or connect an account. The historical filename is retained so existing links keep working.
 
 ## Recommend two skills, one everyday entry point
 
@@ -8,7 +8,7 @@
 
 Modes: plan, work, status, recover. A status request is read-only. A work request may change the chosen project's tasks and authorized repository files, but does not grant blanket publication or production access. It should load only the selected project's private configuration and relevant reference.
 
-Both proposed skills would follow [AUDIT-TRAIL.md](AUDIT-TRAIL.md). This update extends their proposed responsibilities; it does not create or install either skill. The repository's existing housekeeping role can maintain records without them.
+Both skills follow [AUDIT-TRAIL.md](AUDIT-TRAIL.md). The repository's existing housekeeping role can also maintain records without a skill installation.
 
 **`delivery-reviewer`** handles a specific candidate or completed packet in a fresh run. It independently checks acceptance, scope, tests, failure behavior, and release readiness. It returns concrete findings and evidence. It does not silently implement its own recommendations, approve its own work, or merge/deploy. The coordinator can invoke it; users should not need to remember two commands for routine work.
 
@@ -16,7 +16,7 @@ A third generic worker skill would mostly repeat what coding assistants already 
 
 ## `delivery-coordinator`: use cases and value
 
-These are the intended use cases for the proposed skill. Outputs are work products the assistant would produce; the skill file itself would not run a background service.
+These are the supported use cases. Outputs are work products the assistant produces during the session; the skill file does not run a background service.
 
 | Use case | Inputs | Outputs | Value and permission boundary |
 | --- | --- | --- | --- |
@@ -61,7 +61,7 @@ The human owner may review an agent's work. The same executor may not approve it
 
 ## Reuse existing specialists when the packet calls for them
 
-This matrix covers the specialists relevant to the proposed delivery workflow, rather than every installed skill. The coordinator selects only the ones the current outcome needs. Ordinary coding and test work still uses the existing assistant, the repository's `AGENTS.md`, and its CI; it does not need a third worker skill.
+This matrix covers the specialists relevant to this delivery workflow, rather than every installed skill. The coordinator selects only the ones the current outcome needs. Ordinary coding and test work still uses the existing assistant, the repository's `AGENTS.md`, and its CI; it does not need a third worker skill.
 
 | Existing skill or capability | Practical use cases | Inputs → outputs | Value and boundary |
 | --- | --- | --- | --- |
@@ -73,13 +73,13 @@ This matrix covers the specialists relevant to the proposed delivery workflow, r
 | `cloudflare:durable-objects` or `cloudflare:agents-sdk`, when needed | Build or review stateful coordination, storage, WebSockets or an explicitly requested agent application | Approved application requirements, state model and code → implementation, relevant tests and operational findings | Covers stateful platform behavior when a real task requires it. Selecting these skills does not add a runner, durable ownership or locking to the current board; those would be separate engineering work. |
 | `cloudflare:web-perf` | Audit page load, investigate layout shifts, identify blocking resources or verify a performance regression | URL/build, test conditions and available browser tooling → measured performance findings and a focused improvement plan | Connects optimization work to observations. Do not generalize one run to all users or claim a gain without a comparable measurement. An audit does not automatically authorize code changes. |
 | Browser tools and repository tests | Exercise a sign-up or editing flow, check responsive behavior, reproduce a bug, inspect expected failure states | Safe target, user journey and expected results → observations, test output and evidence | Checks functional behavior alongside design and performance. Use existing tools; preserve real user data and avoid unintended submissions. This is a capability route, not another proposed skill. |
-| `skill-creator` | Create the two proposed skills after approval, or refine a reusable workflow after a demonstrated need | Approved scope, realistic requests and repeated workflow problems → focused skill instructions, necessary references and validation | Captures decisions worth reusing. Use it when adding or changing workflow instructions, not for every delivery task. This proposal does not authorize creating, installing or modifying any skill. |
+| `skill-creator` | Refine an approved skill after a demonstrated workflow problem | Approved scope, realistic requests and repeated workflow problems → focused instructions and validation | Captures decisions worth reusing. Use it when changing workflow instructions, not for every delivery task. A use-case guide does not grant permission for further installations or changes. |
 
 Evidence gathering uses ordinary source research when needed. Deep Research is used only when explicitly requested. A documentation correction should not load design, Cloudflare or performance skills unless it also changes those concerns.
 
 ## Instructions usable now
 
-These are plain requests for the current assistant. They do not depend on either proposed skill being installed. Supply the project/task link or local path so the assistant can resolve the target.
+These are plain requests for the current assistant. They do not depend on either delivery skill being installed. Supply the project/task link or local path so the assistant can resolve the target.
 
 ```text
 Read the Zero Slop delivery project and tell me the next actionable outcome,
@@ -102,7 +102,7 @@ Use $zero-slop to inspect this release note against the supplied source facts.
 
 If Asana access is unavailable, use the supplied packet or exported manifest and say that live board state was not checked. Do not pretend a local draft is a successful Asana update.
 
-## Proposed invocations after approval and installation
+## Invocations after installation
 
 ```text
 Use $delivery-coordinator to show what needs my attention in Zero Slop.
@@ -113,11 +113,13 @@ Use $delivery-reviewer to review this PR against its Asana acceptance checks.
 Use $delivery-reviewer to check release readiness for this exact revision.
 ```
 
-These two `$delivery-*` names are proposed invocations, not available commands yet. Installation would add the two skill directories and their focused references. It would not alter authentication, billing, the user's existing specialists, or production repositories.
+The two `$delivery-*` names become available after installing the matching directories from this repository's `skills/` folder. Installation does not alter authentication, billing, the user's existing specialists, or production repositories.
 
-## Approval and validation
+## Install and validate
 
-After approval: create the skills in this repository, validate their metadata, and test realistic requests in isolation. Tests should cover status-only behavior, missing connector access, a conflicting writer, stale evidence, an unsafe task instruction, budget exhaustion, and a release that requires new authority. Then install the approved version in the user's skills directory, preserving existing installations.
+Ask your assistant: “Install delivery-coordinator and delivery-reviewer from manavmishra/agent-delivery-backplane, then use the coordinator for this project's authorized development.” It should use its supported skill installer, select the two directories, and preserve existing installations. In Codex, newly installed skills become available on the next turn. Other assistants should use their own supported skill directory.
+
+Validate metadata and test realistic requests in isolation. Cover status-only behavior, missing connector access, a conflicting writer, stale evidence, an unsafe task instruction, budget exhaustion, and a release that requires new authority. The recorded review and tests are in [ACCEPTANCE.md](ACCEPTANCE.md); metadata validation alone is not behavioral proof.
 
 Also test late-recorded evidence, an unknown historical start, a reopened task, review that stopped before the final candidate, a skipped deploy, and an Asana write whose result is uncertain. The coordinator must preserve gaps and pending synchronization; the reviewer must not invent an approval to unblock closure.
 

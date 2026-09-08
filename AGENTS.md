@@ -6,4 +6,5 @@ The user requests work; the coordinator handles verified Asana housekeeping
 during that authorized session. Status-only requests remain read-only.
 
 Run the checks described in the README for changed code or manifests. Do not
-claim an unattended dispatcher, enforced runner budget, or installed skill.
+claim an unattended dispatcher or enforced runner budget. Skill source is in
+`skills/`; claim an installation only after verifying the destination files.

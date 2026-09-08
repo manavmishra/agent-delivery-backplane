@@ -1,0 +1,6 @@
+interface:
+  display_name: "Delivery Reviewer"
+  short_description: "Review exact revisions and delivery evidence"
+  default_prompt: "Use $delivery-reviewer to review this exact revision against its acceptance criteria."
+policy:
+  allow_implicit_invocation: true

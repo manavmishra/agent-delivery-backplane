@@ -100,6 +100,7 @@ function replay(events) {
       if (event.kind === 'check') checks.set(event.name, event);
       if (event.kind === 'review') review = event;
       if (event.kind === 'release') {
+        verification = null;
         const knownBeforeRelease = item => evidence(item) && auditTimestamp(item.at) <= auditTimestamp(event.at) && auditTimestamp(item.recordedAt) <= auditTimestamp(event.recordedAt);
         releaseReady = Boolean(scope && review?.result === 'approved' && knownBeforeRelease(review) &&
           scope.requiredChecks.every(name => checks.get(name)?.result === 'passed' && knownBeforeRelease(checks.get(name))));
@@ -110,7 +111,7 @@ function replay(events) {
     }
   }
   const gaps = [];
-  if (!authorizations.some(event => event.actor.role === 'human' && event.actions.includes('work') && evidence(event) && (!workers.length || auditTimestamp(event.at) <= Math.min(...workers.map(worker => auditTimestamp(worker.at)))))) gaps.push('work_authorization');
+  if (!authorizations.some(event => event.actor.role === 'human' && event.actions.includes('work') && (!event.candidate || event.candidate === candidate) && evidence(event) && (!workers.length || auditTimestamp(event.at) <= Math.min(...workers.map(worker => auditTimestamp(worker.at)))))) gaps.push('work_authorization');
   if (!scope || !evidence(scope)) gaps.push('scope');
   if (!workers.length) gaps.push('workers');
   if (!candidate) gaps.push('candidate');
@@ -139,6 +140,7 @@ export function validateAudit(audit, prefix = 'audit', requireClosure = false) {
     if (event.kind === 'review' && known.some(previous => previous.kind === 'worker' && identity(previous.actor.id) === identity(event.actor.id))) errors.push(`${prefix}.${event.id}: independent review cannot be self-review`);
     if (event.kind === 'closure') {
       const record = replay(known.filter(previous => auditTimestamp(previous.at) <= auditTimestamp(event.at)));
+      if (record.candidate !== event.candidate) errors.push(`${prefix}.${event.id}: closure must match the current candidate`);
       if (!record.closureVerified) errors.push(`${prefix}.${event.id}: closure missing ${record.gaps.join(', ') || 'current candidate'}`);
     }
   }

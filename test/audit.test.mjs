@@ -26,6 +26,25 @@ const manifest = (events = history()) => ({ schemaVersion: '1.0', name: 'Illustr
     metadata: { audit: { schemaVersion: '1.0', events } } }] });
 const failure = (events, expected) => assert.match(validateManifest(manifest(events)).join('\n'), expected);
 
+test('candidate-restricted work authorization cannot authorize a different candidate', () => {
+  const events = history(); events[0].candidate = nextSha;
+  failure(events, /work_authorization/);
+  events[0].candidate = sha;
+  assert.deepEqual(validateManifest(manifest(events)), []);
+});
+
+test('each closure must certify its own current candidate, not inherit a prior closure', () => {
+  failure([...history(), event('closure', 11, { candidate: nextSha })], /closure.*current candidate/);
+});
+
+test('a new release invalidates earlier verification even at equal timestamps', () => {
+  const events = history();
+  events.splice(9, 0, event('release', 8, { id: 'release-again', candidate: sha, target: 'preview', result: 'verified' }));
+  failure(events, /closure.*verification/);
+  events.splice(10, 0, event('verification', 8, { id: 'verify-again', candidate: sha, target: 'preview', result: 'passed' }));
+  assert.deepEqual(validateManifest(manifest(events)), []);
+});
+
 test('audit reports historical state only from events known by the explicit cutoff', () => {
   const value = manifest();
   assert.deepEqual(validateManifest(value), []);

@@ -62,7 +62,7 @@ The versioned JSON format is the portable work contract. When copying a referenc
 | Understand permissions and recovery | [Security](docs/SECURITY.md) |
 | Check what has been tested | [Acceptance checks](docs/ACCEPTANCE.md) |
 | Inspect the evidence behind the design | [Research and limits](docs/RESEARCH.md) |
-| Consider optional assistant skills | [Skills proposal](docs/SKILLS-PROPOSAL.md) |
+| Install the coordinator and reviewer; see their use cases | [Delivery skills](docs/SKILLS-PROPOSAL.md) |
 | Share or adapt the community templates | [Community distribution](docs/COMMUNITY.md) |
 
 The connector supplies access; the work packet supplies context. Neither grants permission to publish, spend money, change access, or run untrusted commands. An autonomous adapter needs authenticated events, durable ownership, deduplication, reconciliation, and enforced budgets before production use. Those adapters are not implemented here.

@@ -38,3 +38,16 @@ test('community template explains audit history without fabricating completed ru
   assert.match(task.instructions, /recording time/);
   assert.match(toCsv(value), /AUDIT TRAIL/);
 });
+
+test('scope payload resolves to repository fields instead of recursively requiring an event', () => {
+  const schema = read('../schema/audit.schema.json');
+  const ref = schema.$defs.scope.properties.scope.$ref;
+  const payload = schema.$defs[ref.split('/').at(-1)];
+  assert.deepEqual(payload.required, ['repo', 'include', 'exclude']);
+  assert.equal(payload.additionalProperties, false);
+  const example = read('../examples/audit-trail.json').tasks[0].metadata.audit.events.find(e => e.kind === 'scope').scope;
+  for (const name of payload.required) assert.ok(Object.hasOwn(example, name));
+  for (const name of Object.keys(example)) assert.ok(Object.hasOwn(payload.properties, name));
+  assert.equal(payload.properties.include.minItems, 1);
+  assert.equal(payload.properties.exclude.maxItems, 100);
+});

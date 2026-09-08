@@ -38,6 +38,10 @@ The cases below are acceptance requirements. Record the command, exact kit revis
 | L09 | Export again to an existing file without `--force`, then perform an explicitly requested overwrite on synthetic output. | Default refuses; explicit overwrite behaves as documented. Neither operation is represented as idempotent Asana import. |
 | L10 | Inspect CLI imports, package dependencies and tests; run the local test suite with no Asana credential configured. | No Asana request, webhook listener, scheduler, agent dispatch, shell-command execution from task text, or model call is required for validation/export/summary. Browser/account setup is absent from local success claims. |
 | L11 | Supply an evidence URL with credentials or a non-HTTP(S) scheme; inspect exported sample descriptions. | Invalid evidence is rejected; shipped examples contain no tokens, account metrics, private paths or personal addresses. URL validity does not certify that a destination is safe or accessible. |
+| L12 | Run the illustrative audit at 10:05, 10:10 and 10:18 UTC on 2026-01-01. | Active, supported closure, then Blocked after reopening; the current task state cannot leak into earlier reports. |
+| L13 | Add late-recorded evidence, invalid calendar dates, duplicate event IDs, unknown fields, excessive events or malformed roles. | Later evidence stays out of earlier reports; malformed histories fail with useful errors. |
+| L14 | Claim closure after skipped/failed checks, self-review, stale candidates, wrong release targets, or release before review/checks. | The unsupported closure is rejected. A new candidate, reopen, rejected review or blocker invalidates affected completion evidence. |
+| L15 | Audit a legacy manifest without history; run audit with no cutoff, then with a valid explicit cutoff. | Legacy work reports unknown history. A cutoff is required. Valid report generation writes JSON only to stdout and leaves the input untouched. Exit 0 is not a compliance pass. |
 
 ## Coordinator exercises
 
@@ -87,3 +91,20 @@ Tested source SHA-256 values:
 | `schema/manifest.schema.json` | `db8ae14d4687e14dba9dd8abd69a99348457280939ec7dc0877e435b998d6054` |
 
 This records the local CLI suite and separate parser check, not a pass for every manual case above. Live Asana import/downgrade, independent human onboarding, Linux/Windows execution and autonomous-adapter recovery remain untested by this reviewer. The first shell-default Node run correctly hit the minimum-version guard; the passing results above used the supported runtime.
+
+### Audit extension local checkpoint — September 8, 2026
+
+The expanded suite passes **35 tests, 0 failures** on macOS with the bundled Node 24 runtime. It covers historical cutoffs, late-recorded evidence, malformed input, candidate changes, reopens, blockers, release ordering, authority assertions, independent actor IDs, no-release work, unchanged inputs and a deterministic 1,000-event history. The documented example reports Active, Done and Blocked at its three cutoffs. The template and its generated CSV remain reference instructions, without fictional completed work.
+
+TDD evidence: the implementation agent's audit regressions were followed by a separate review that found reopening, release-ordering, repeated-worker and malformed-field gaps. Regression cases now cover those findings. A later scope/role test also failed before the coordinator's correction and passed afterward. Those local passes do not constitute the missing final independent review.
+
+The reviewer stopped at a usage limit before inspecting the final combined change. **Final independent approval and publication remain pending.** The coordinator's tests are not substituted for that approval. No new package publish, paid Asana feature, autonomous dispatcher, Linux/Windows run or independent onboarding trial is claimed by this checkpoint. The standalone JSON Schema is documented and example-field checked; the runtime's explicit validator, not an external JSON Schema engine, enforces the semantic gates in these tests.
+
+Tested implementation SHA-256 values:
+
+| File | SHA-256 |
+| --- | --- |
+| `src/audit.mjs` | `90f57d8021a53b4b4699940d199bfcb5651961abadd0d5951f94f6f828efe902` |
+| `src/cli.mjs` | `b1a245ca0ba8e166f0292082e5674407c5126eccbb4593b36a6947a91b822d46` |
+| `src/manifest.mjs` | `39176256ad7bfac37f6e757a62792605eec63a9843755c35a9161fd3dce11eaa` |
+| `schema/audit.schema.json` | `99e057354ef877f2595668e3b0babc7e24e0ae0ebce4761181ccf4016fa0b881` |

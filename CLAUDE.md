@@ -8,4 +8,6 @@ For authorized development, automatically invoke the bounded Asana housekeeping 
 
 Preserve unrelated changes. Use `npm test` for validator changes and the documented `node src/cli.mjs` checks for manifests; inspect current commands before running them. A local validation result does not authenticate a reviewer, verify a remote release, or enforce runner budgets.
 
+Read `docs/AUDIT-TRAIL.md` for per-work history and point-in-time reporting. Apply the contract to this repository's own development too. Preserve missing evidence as a gap; a review that stopped before inspecting the final candidate is not approval to release it.
+
 Changes to runtime code, schemas, connectors, permissions, releases, or billing need the authority appropriate to the actual request. Housekeeping does not grant that authority. Do not create or install skills under these instructions; optional skills still require the user's separate decision.

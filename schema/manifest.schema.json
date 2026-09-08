@@ -84,7 +84,7 @@
           "properties": { "reason": { "$ref": "#/$defs/text" }, "nextAction": { "$ref": "#/$defs/text" } }
         },
         "approvedBy": { "$ref": "#/$defs/name" },
-        "metadata": { "type": "object", "additionalProperties": true }
+        "metadata": { "type": "object", "additionalProperties": true, "$comment": "Delivery metadata.audit is reserved for the audit 1.0 extension documented in audit.schema.json. The CLI validates its shape and lifecycle semantics separately; other metadata remains extensible." }
       }
     }
   }

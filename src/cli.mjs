@@ -3,12 +3,18 @@ import { lstat, open } from 'node:fs/promises';
 import { constants } from 'node:fs';
 import { resolve } from 'node:path';
 import { MAX_INPUT_BYTES, assertValid, summarizeManifest, toCsv } from './manifest.mjs';
+import { auditManifest, auditTimestamp } from './audit.mjs';
 
-const usage = 'Usage:\n  adbp validate <manifest.json>\n  adbp summary <manifest.json>\n  adbp export <manifest.json> --csv <output.csv> [--force]';
+const usage = 'Usage:\n  adbp validate <manifest.json>\n  adbp summary <manifest.json>\n  adbp audit <manifest.json> --as-of <UTC timestamp>\n  adbp export <manifest.json> --csv <output.csv> [--force]';
 
 function parseArgs(args) {
   const [command, input, ...rest] = args;
-  if (!['validate', 'summary', 'export'].includes(command) || !input || input.startsWith('--')) throw new Error(usage);
+  if (!['validate', 'summary', 'audit', 'export'].includes(command) || !input || input.startsWith('--')) throw new Error(usage);
+  if (command === 'audit') {
+    if (rest.length !== 2 || rest[0] !== '--as-of') throw new Error(usage);
+    auditTimestamp(rest[1]);
+    return { command, input, asOf: rest[1] };
+  }
   if (command !== 'export') {
     if (rest.length) throw new Error(usage);
     return { command, input };
@@ -72,6 +78,7 @@ try {
   const { manifest, stat } = await loadManifest(options.input);
   if (options.command === 'validate') process.stdout.write(`Valid manifest: ${manifest.tasks.length} task(s)\n`);
   else if (options.command === 'summary') process.stdout.write(`${JSON.stringify(summarizeManifest(manifest), null, 2)}\n`);
+  else if (options.command === 'audit') process.stdout.write(`${JSON.stringify(auditManifest(manifest, options.asOf), null, 2)}\n`);
   else {
     await writeCsv(options.output, toCsv(manifest), options.force, options.input, stat);
     process.stdout.write(`Exported ${manifest.tasks.length} task(s) to ${options.output}\n`);

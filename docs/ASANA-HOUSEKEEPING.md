@@ -33,6 +33,10 @@ Record the intended outcome, repository, allowed scope, owner, prerequisites, ex
 
 Update when scope is ready, execution starts, review is ready, a material blocker changes, a release occurs, or completion is verified. Avoid heartbeat chatter and duplicate comments. Post brief summaries with approved evidence links rather than transcripts.
 
+Maintain the [per-work audit trail](AUDIT-TRAIL.md) from the first authorized checkpoint through verified closure or a concrete blocker. Keep the task description as the current summary and retain decisions, handoffs, failed/skipped checks and release receipts in checkpoint history. Each checkpoint records when the event happened and when it was recorded. Do not invent missing historical events. Generate point-in-time reports from evidence known by the requested cutoff, not today's task state. The report is an ADLC process record, not regulatory certification or authenticated approval.
+
+For new private JSON delivery packets, initialize `metadata.audit` with schema version `1.0` and an empty `events` array; append actual events as work happens. Reference cards contain this instruction, not delivery history. Retain the private manifest and report with their digest and framework revision. Never publish private records through the community CSV or blog. The local CLI generates reports; the housekeeping role separately reconciles Asana and reads back its writes.
+
 Read back every mutation and confirm the intended task, state, and content. If a write times out, inspect the target before retrying. If creation may have succeeded, search the scoped project for the stable packet marker. Do not create a replacement merely because the local mapping is missing. Preserve uncertainty when reconciliation is inconclusive.
 
 One writer is a coordination rule, not a distributed lock. Asana assignees and comments do not provide atomic leases. Verify stalled workers and preserve their output before transferring execution. Future unattended production adapters still require the ownership, idempotency, reconciliation, and enforcement controls in [ADAPTERS.md](ADAPTERS.md).

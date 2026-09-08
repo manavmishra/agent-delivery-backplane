@@ -42,11 +42,14 @@ Permitted actions / release owner / required decision:
 Timebox / attempt limit / cost or token ceiling:
 Candidate / checks / review / release evidence:
 Last verified state / next safe action:
+Audit checkpoint ID / occurred at / recorded at / decision and evidence:
 ```
 
 Keep one writer on each branch and one coordinator updating execution ownership. Workers return artifacts to that coordinator. An assignee or claimed-at comment is a coordination convention, not an atomic lock. Replacing a stalled worker requires checking its process and preserving its changes before transferring ownership.
 
 Review must actually examine the result. For a solo operator, a fresh agent run can provide a separate AI review; identify it as such. It is not another human approval, and the implementer's own tests are not an independent review. Check affected evidence again after revisions change. A merge that triggers production is a release action and needs the applicable authority before the merge.
+
+Keep the [per-work audit trail](AUDIT-TRAIL.md) alongside the current packet. The housekeeper records actual decisions and handoffs from authorization through closure or blocker, without paid Asana fields. Preserve failed and skipped outcomes. A historical report uses only events known by its cutoff; missing history stays unknown. Reopening or changing the candidate invalidates the relevant completion evidence.
 
 ## Grow only when review capacity grows
 

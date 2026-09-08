@@ -90,3 +90,14 @@ remaining limitations. Mark Done only when the required evidence is present.
 The housekeeping agent attaches the diff/PR, reviewed revision, check results, release receipt, and target verification before marking Done and completing the task. It reads the result back before reporting success. A skipped or failed deploy stays unfinished. For work requiring no release, it records why release is not applicable and retains acceptance evidence.
 
 For detailed gates and recovery rules, see the [operating model](OPERATING-MODEL.md) and [security guide](SECURITY.md).
+
+## 6. Ask for the record, not another status meeting
+
+```text
+Generate the ADLC audit report for [packet] as of [explicit UTC timestamp].
+Use only events and evidence recorded by that cutoff. Include decisions,
+agent handoffs, exact revisions, check outcomes, review, release verification,
+and open gaps. Keep private evidence private. This report request is read-only.
+```
+
+During authorized development the housekeeper retains these checkpoints automatically. You do not need to enter them yourself. The offline `audit` command can report from a private manifest; it does not pull data from Asana. See the [audit guide](AUDIT-TRAIL.md) for the runnable example and the distinction between process evidence and compliance certification.

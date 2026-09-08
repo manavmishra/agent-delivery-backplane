@@ -1,4 +1,5 @@
 import { readFileSync } from 'node:fs';
+import { validateAudit } from './audit.mjs';
 
 const schema = JSON.parse(readFileSync(new URL('../schema/manifest.schema.json', import.meta.url), 'utf8'));
 export const MAX_INPUT_BYTES = 1024 * 1024;
@@ -87,6 +88,10 @@ export function validateManifest(value) {
     if (!sections.has(task.section)) errors.push(`${task.id}: unknown section ${task.section}`);
   }
   for (const task of value.tasks) {
+    if (task.metadata && Object.hasOwn(task.metadata, 'audit')) {
+      if (task.kind === 'reference') errors.push(`${task.id}: reference templates must not contain delivery audit history`);
+      else errors.push(...validateAudit(task.metadata.audit, `${task.id}.metadata.audit`, task.state === 'done'));
+    }
     const dependencies = new Set();
     for (const id of task.dependsOn ?? []) {
       if (dependencies.has(id)) errors.push(`${task.id}: duplicate dependency ${id}`);

@@ -40,6 +40,7 @@ git clone https://github.com/manavmishra/agent-delivery-backplane.git
 cd agent-delivery-backplane
 node src/cli.mjs validate templates/project.json
 node src/cli.mjs summary examples/zero-slop.json
+node src/cli.mjs audit examples/audit-trail.json --as-of 2026-01-01T10:10:00Z
 node src/cli.mjs export templates/project.json --csv my-project.csv
 npm test
 ```
@@ -54,6 +55,7 @@ The versioned JSON format is the portable work contract. When copying a referenc
 | --- | --- |
 | Run today's work with copyable prompts | [Quickstart](docs/QUICKSTART.md) |
 | Let the assistant maintain the board during development | [Asana housekeeping](docs/ASANA-HOUSEKEEPING.md) |
+| Reconstruct a work packet at a chosen time and inspect evidence gaps | [Per-work audit trail](docs/AUDIT-TRAIL.md) |
 | Understand the lifecycle and handoffs | [Operating model](docs/OPERATING-MODEL.md) |
 | Coordinate Zero Slop's repositories | [Zero Slop profile](docs/ZERO-SLOP.md) |
 | Connect an assistant or plan automation | [Adapters](docs/ADAPTERS.md) |

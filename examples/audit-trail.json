@@ -1,0 +1,372 @@
+{
+  "schemaVersion": "1.0",
+  "name": "Illustrative audit lifecycle — not Zero Slop production evidence",
+  "metadata": {
+    "exampleOnly": true
+  },
+  "sections": [
+    {
+      "id": "blocked",
+      "name": "Blocked"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "EXAMPLE-AUDIT",
+      "kind": "delivery",
+      "name": "Illustrative completed work, reopened for correction",
+      "owner": "Example human owner",
+      "section": "blocked",
+      "state": "blocked",
+      "instructions": "Synthetic training example. Do not import it as real work or use its placeholder URLs as proof.",
+      "blocked": {
+        "reason": "Illustrative review requires a correction.",
+        "nextAction": "Resolve the review finding and refresh affected evidence."
+      },
+      "metadata": {
+        "audit": {
+          "schemaVersion": "1.0",
+          "events": [
+            {
+              "id": "example-0",
+              "at": "2026-01-01T10:00:00Z",
+              "recordedAt": "2026-01-01T10:00:00Z",
+              "kind": "authorization",
+              "actor": {
+                "id": "example-owner",
+                "role": "human"
+              },
+              "summary": "Illustrative authorization; not actual delivery evidence.",
+              "evidence": [
+                {
+                  "label": "Illustrative evidence only",
+                  "url": "https://example.invalid/adlc/receipt"
+                }
+              ],
+              "actions": [
+                "work",
+                "release"
+              ],
+              "target": "preview"
+            },
+            {
+              "id": "example-1",
+              "at": "2026-01-01T10:01:00Z",
+              "recordedAt": "2026-01-01T10:01:00Z",
+              "kind": "scope",
+              "actor": {
+                "id": "example-coordinator",
+                "role": "coordinator"
+              },
+              "summary": "Illustrative scope; not actual delivery evidence.",
+              "evidence": [
+                {
+                  "label": "Illustrative evidence only",
+                  "url": "https://example.invalid/adlc/receipt"
+                }
+              ],
+              "scope": {
+                "repo": "example/project",
+                "include": [
+                  "src/"
+                ],
+                "exclude": [
+                  "credentials/"
+                ]
+              },
+              "acceptance": [
+                "The illustrative unit check passes."
+              ],
+              "requiredChecks": [
+                "unit"
+              ],
+              "releaseRequired": true
+            },
+            {
+              "id": "example-2",
+              "at": "2026-01-01T10:02:00Z",
+              "recordedAt": "2026-01-01T10:02:00Z",
+              "kind": "worker",
+              "actor": {
+                "id": "example-worker",
+                "role": "worker"
+              },
+              "summary": "Illustrative worker; not actual delivery evidence.",
+              "evidence": [
+                {
+                  "label": "Illustrative evidence only",
+                  "url": "https://example.invalid/adlc/receipt"
+                }
+              ],
+              "runId": "illustrative-run-1"
+            },
+            {
+              "id": "example-3",
+              "at": "2026-01-01T10:03:00Z",
+              "recordedAt": "2026-01-01T10:03:00Z",
+              "kind": "state",
+              "actor": {
+                "id": "example-coordinator",
+                "role": "coordinator"
+              },
+              "summary": "Illustrative state; not actual delivery evidence.",
+              "evidence": [
+                {
+                  "label": "Illustrative evidence only",
+                  "url": "https://example.invalid/adlc/receipt"
+                }
+              ],
+              "state": "active"
+            },
+            {
+              "id": "example-4",
+              "at": "2026-01-01T10:04:00Z",
+              "recordedAt": "2026-01-01T10:04:00Z",
+              "kind": "candidate",
+              "actor": {
+                "id": "example-coordinator",
+                "role": "coordinator"
+              },
+              "summary": "Illustrative candidate; not actual delivery evidence.",
+              "evidence": [
+                {
+                  "label": "Illustrative evidence only",
+                  "url": "https://example.invalid/adlc/receipt"
+                }
+              ],
+              "candidate": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            },
+            {
+              "id": "example-5",
+              "at": "2026-01-01T10:05:00Z",
+              "recordedAt": "2026-01-01T10:05:00Z",
+              "kind": "check",
+              "actor": {
+                "id": "example-coordinator",
+                "role": "coordinator"
+              },
+              "summary": "Illustrative check; not actual delivery evidence.",
+              "evidence": [
+                {
+                  "label": "Illustrative evidence only",
+                  "url": "https://example.invalid/adlc/receipt"
+                }
+              ],
+              "candidate": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "name": "unit",
+              "result": "passed"
+            },
+            {
+              "id": "example-6",
+              "at": "2026-01-01T10:06:00Z",
+              "recordedAt": "2026-01-01T10:06:00Z",
+              "kind": "review",
+              "actor": {
+                "id": "example-reviewer",
+                "role": "reviewer"
+              },
+              "summary": "Illustrative review; not actual delivery evidence.",
+              "evidence": [
+                {
+                  "label": "Illustrative evidence only",
+                  "url": "https://example.invalid/adlc/receipt"
+                }
+              ],
+              "candidate": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "result": "approved"
+            },
+            {
+              "id": "example-7",
+              "at": "2026-01-01T10:07:00Z",
+              "recordedAt": "2026-01-01T10:07:00Z",
+              "kind": "release",
+              "actor": {
+                "id": "example-coordinator",
+                "role": "coordinator"
+              },
+              "summary": "Illustrative release; not actual delivery evidence.",
+              "evidence": [
+                {
+                  "label": "Illustrative evidence only",
+                  "url": "https://example.invalid/adlc/receipt"
+                }
+              ],
+              "candidate": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "target": "preview",
+              "result": "verified"
+            },
+            {
+              "id": "example-8",
+              "at": "2026-01-01T10:08:00Z",
+              "recordedAt": "2026-01-01T10:08:00Z",
+              "kind": "verification",
+              "actor": {
+                "id": "example-coordinator",
+                "role": "coordinator"
+              },
+              "summary": "Illustrative verification; not actual delivery evidence.",
+              "evidence": [
+                {
+                  "label": "Illustrative evidence only",
+                  "url": "https://example.invalid/adlc/receipt"
+                }
+              ],
+              "candidate": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "target": "preview",
+              "result": "passed"
+            },
+            {
+              "id": "example-9",
+              "at": "2026-01-01T10:09:00Z",
+              "recordedAt": "2026-01-01T10:09:00Z",
+              "kind": "closure",
+              "actor": {
+                "id": "example-coordinator",
+                "role": "coordinator"
+              },
+              "summary": "Illustrative closure; not actual delivery evidence.",
+              "evidence": [
+                {
+                  "label": "Illustrative evidence only",
+                  "url": "https://example.invalid/adlc/receipt"
+                }
+              ],
+              "candidate": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            },
+            {
+              "id": "example-11",
+              "at": "2026-01-01T10:11:00Z",
+              "recordedAt": "2026-01-01T10:11:00Z",
+              "kind": "state",
+              "actor": {
+                "id": "example-coordinator",
+                "role": "coordinator"
+              },
+              "summary": "Illustrative reopening. Earlier closure does not certify new work.",
+              "evidence": [
+                {
+                  "label": "Illustrative evidence only",
+                  "url": "https://example.invalid/adlc/receipt"
+                }
+              ],
+              "state": "active"
+            },
+            {
+              "id": "example-12",
+              "at": "2026-01-01T10:12:00Z",
+              "recordedAt": "2026-01-01T10:12:00Z",
+              "kind": "handoff",
+              "actor": {
+                "id": "example-coordinator",
+                "role": "coordinator"
+              },
+              "summary": "Illustrative handoff after the old worker stopped; output preserved.",
+              "evidence": [
+                {
+                  "label": "Illustrative evidence only",
+                  "url": "https://example.invalid/adlc/receipt"
+                }
+              ],
+              "runId": "illustrative-run-1",
+              "to": "example-worker-2"
+            },
+            {
+              "id": "example-13",
+              "at": "2026-01-01T10:13:00Z",
+              "recordedAt": "2026-01-01T10:13:00Z",
+              "kind": "worker",
+              "actor": {
+                "id": "example-worker-2",
+                "role": "worker"
+              },
+              "summary": "Illustrative worker; not actual delivery evidence.",
+              "evidence": [
+                {
+                  "label": "Illustrative evidence only",
+                  "url": "https://example.invalid/adlc/receipt"
+                }
+              ],
+              "runId": "illustrative-run-2"
+            },
+            {
+              "id": "example-14",
+              "at": "2026-01-01T10:14:00Z",
+              "recordedAt": "2026-01-01T10:14:00Z",
+              "kind": "candidate",
+              "actor": {
+                "id": "example-coordinator",
+                "role": "coordinator"
+              },
+              "summary": "Illustrative candidate; not actual delivery evidence.",
+              "evidence": [
+                {
+                  "label": "Illustrative evidence only",
+                  "url": "https://example.invalid/adlc/receipt"
+                }
+              ],
+              "candidate": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+            },
+            {
+              "id": "example-15",
+              "at": "2026-01-01T10:15:00Z",
+              "recordedAt": "2026-01-01T10:15:00Z",
+              "kind": "check",
+              "actor": {
+                "id": "example-coordinator",
+                "role": "coordinator"
+              },
+              "summary": "Illustrative check; not actual delivery evidence.",
+              "evidence": [
+                {
+                  "label": "Illustrative evidence only",
+                  "url": "https://example.invalid/adlc/receipt"
+                }
+              ],
+              "candidate": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "name": "unit",
+              "result": "passed"
+            },
+            {
+              "id": "example-16",
+              "at": "2026-01-01T10:16:00Z",
+              "recordedAt": "2026-01-01T10:16:00Z",
+              "kind": "review",
+              "actor": {
+                "id": "example-reviewer",
+                "role": "reviewer"
+              },
+              "summary": "Illustrative review; not actual delivery evidence.",
+              "evidence": [
+                {
+                  "label": "Illustrative evidence only",
+                  "url": "https://example.invalid/adlc/receipt"
+                }
+              ],
+              "candidate": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "result": "changes_requested"
+            },
+            {
+              "id": "example-17",
+              "at": "2026-01-01T10:17:00Z",
+              "recordedAt": "2026-01-01T10:17:00Z",
+              "kind": "blocker",
+              "actor": {
+                "id": "example-coordinator",
+                "role": "coordinator"
+              },
+              "summary": "Illustrative blocker; not actual delivery evidence.",
+              "evidence": [
+                {
+                  "label": "Illustrative evidence only",
+                  "url": "https://example.invalid/adlc/receipt"
+                }
+              ],
+              "nextAction": "Resolve the illustrative review finding before release."
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
+

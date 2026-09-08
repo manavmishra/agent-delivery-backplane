@@ -8,6 +8,8 @@
 
 Modes: plan, work, status, recover. A status request is read-only. A work request may change the chosen project's tasks and authorized repository files, but does not grant blanket publication or production access. It should load only the selected project's private configuration and relevant reference.
 
+Both proposed skills would follow [AUDIT-TRAIL.md](AUDIT-TRAIL.md). This update extends their proposed responsibilities; it does not create or install either skill. The repository's existing housekeeping role can maintain records without them.
+
 **`delivery-reviewer`** handles a specific candidate or completed packet in a fresh run. It independently checks acceptance, scope, tests, failure behavior, and release readiness. It returns concrete findings and evidence. It does not silently implement its own recommendations, approve its own work, or merge/deploy. The coordinator can invoke it; users should not need to remember two commands for routine work.
 
 A third generic worker skill would mostly repeat what coding assistants already know. Use a bounded packet plus the specialist skills already installed. This keeps the public entry points small without merging implementation and review into one self-approval pass.
@@ -32,6 +34,9 @@ These are the intended use cases for the proposed skill. Outputs are work produc
 | Prepare a release decision | Reviewed revision, current CI, exact target/action, recovery plan | A release brief with remaining decisions and evidence links | Makes the consequential action reviewable. Preserve existing release consent within its scope; request any missing authority before merging or deploying. |
 | Close accepted work | Acceptance, independent review, delivery evidence or a documented non-release result | Completion record and handoff links; authorized board update | Makes Done mean accepted work. A failed, abandoned or merely inactive run must not be counted as delivered. |
 | Review a pilot or weekly workload | Recorded elapsed time, human effort, review, rework, failures and spend | Observations and proposed changes to task size or concurrency | Helps tune the workflow from experience. Missing measurements remain missing; task count and agent count are not productivity gains. |
+| Maintain the request-to-outcome record | Authorized request, scope decisions, worker returns, checks and delivery receipts | Current task summary and dated checkpoints with stable IDs, occurrence and recording times | Removes routine card maintenance from the user. Preserve prior failures and corrections; use one housekeeping writer and verify mutations. |
+| Generate point-in-time work status | Private audit manifest and explicit UTC cutoff | Read-only report of known state, decisions, handoffs and missing evidence | Answers what was known then without borrowing later evidence or today's status. It is process evidence, not regulatory certification. |
+| Reconcile uncertain housekeeping | Pending operation ID, last observed remote state and current task | Verified correction or an explicit pending-sync record | Prevents duplicate tasks/comments after timeouts. Never blindly replay a release or close a task whose evidence is incomplete. |
 
 ## `delivery-reviewer`: use cases and value
 
@@ -50,6 +55,7 @@ The reviewer receives the user requirement and the exact proposed plan or candid
 | Verify an authorized release | Expected revision/version, release record and accessible target | Observed result, deviations and evidence links | Checks that the intended result reached its target. Prefer read-only observation; repair or rollback is a separate authorized action. |
 | Re-review after a change | Previous findings, new revision and affected checks | Resolved/open findings tied to the new candidate | Avoids carrying approval forward to an unreviewed change. Preserve relevant prior evidence while rechecking what became stale. |
 | Return an incomplete review honestly | Missing access, unavailable checks or an unresolved factual question | What was checked, what was not, and the next action | Makes a partial review usable without overstating confidence. Stop at the access or authority boundary and report it. |
+| Audit the delivery chronology | Exact candidate, checkpoint trail, cutoff and underlying evidence | Process gaps separated from product defects | Detects late approvals, stale evidence, self-review, unsupported closure and unresolved blockers. The local validator cannot authenticate names or URLs; inspect the actual sources. |
 
 The human owner may review an agent's work. The same executor may not approve its own output under a different role label. If the reviewer is later asked to implement a correction, that changed result needs a separate review.
 
@@ -112,6 +118,8 @@ These two `$delivery-*` names are proposed invocations, not available commands y
 ## Approval and validation
 
 After approval: create the skills in this repository, validate their metadata, and test realistic requests in isolation. Tests should cover status-only behavior, missing connector access, a conflicting writer, stale evidence, an unsafe task instruction, budget exhaustion, and a release that requires new authority. Then install the approved version in the user's skills directory, preserving existing installations.
+
+Also test late-recorded evidence, an unknown historical start, a reopened task, review that stopped before the final candidate, a skipped deploy, and an Asana write whose result is uncertain. The coordinator must preserve gaps and pending synchronization; the reviewer must not invent an approval to unblock closure.
 
 Keep public instructions separate from private Asana project IDs, local checkout paths, and credentials. Pin the tested framework contract version. Report missing tools explicitly; do not replace a failed connection with unapproved credential access.
 

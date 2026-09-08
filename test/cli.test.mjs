@@ -57,3 +57,15 @@ test('failed validation never touches an existing forced output', async (t) => {
   assert.equal(run('export', input, '--csv', output, '--force').status, 1);
   assert.equal(await readFile(output, 'utf8'), 'keep this exact content');
 });
+
+test('audit requires an explicit cutoff and writes only a report to stdout', async (t) => {
+  const dir = await sandbox(t), input = join(dir, 'manifest.json');
+  const value = { ...fixture, tasks: [{ ...fixture.tasks[0], kind: 'delivery', section: 'intake', metadata: { audit: { schemaVersion: '1.0', events: [] } } }], sections: [{ id: 'intake', name: 'Intake' }] };
+  const text = JSON.stringify(value); await writeFile(input, text);
+  assert.equal(run('audit', input).status, 1);
+  assert.equal(run('audit', input, '--as-of', 'now').status, 1);
+  const result = run('audit', input, '--as-of', '2026-09-08T10:00:00Z');
+  assert.equal(result.status, 0, result.stderr);
+  assert.equal(JSON.parse(result.stdout).tasks[0].state, 'unknown');
+  assert.equal(await readFile(input, 'utf8'), text);
+});
